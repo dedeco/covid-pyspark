@@ -12,30 +12,31 @@
 - `data/country_vaccinations.csv`
 
 ## Requirements:
-In this challenge, you will to implement a PySpark pipeline that does some basic analysis on COVID-19 vaccine data. You could find data sample in folder `data`
+Implemente o pipeline do PySpark que realiza operações de análise básica nos dados da vacina COVID-19. A amostra de dados para a análise necessária está disponível nos dados na pasta `data`
 
 - `country_vaccinations.csv` 
-  - This is COVID-19 vaccine data which recorded the vaccination progress around the world over time.
-  - The data format is `country,date,total_vaccinations,vaccines`
-  - `country` : this is the country for which the vaccination information is provided
-  - `date` : date for the data entry with format: `d/M/yy`
-  - `total_vaccinations` : this is the absolute number of total immunizations in the country
-  - `vaccines`: name of vaccine (national authority, international organization, local organization)
+  - O arquivo CSV contém os dados da vacina COVID-19 que foram registrados de acordo com o progresso da vacinação em todo o mundo ao longo do tempo.
+  - O formato dos dados é `country,date,total_vaccinations,vaccines`
+  - `country` : país para o qual as informações de vacinação são fornecidas
+  - `date` : data para a data de entrada com o formato: `d/M/yy`
+  - `total_vaccinations` : número absoluto de imunizações totais no país
+  - `vaccines`: nome da vacina (autoridade nacional, organização internacional, organização local)
   
   
-The project is partially completed and there are 4 methods and a spark session to be implemented in the class `main.job.pipeline.PySparkJob.py`:
+O projeto está parcialmente concluído e existem 4 métodos e uma sessão de ativação a serem implementados na classe `main.job.pipeline.PySparkJob.py`:
 
 - `init_spark_session(self) -> SparkSession`:
-  - create a spark session with name `Covid19 Vaccination Progress`
+  - criar uma sessão spark com o nome `Covid19 Vaccination Progress`
 
 - `count_available_vaccines(self, vaccines: DataFrame) -> int`:
-  - count number of unique `vaccines` around the world
+  - conte o número de vacinas exclusivas em todo o mundo
 
 - `find_earliest_used_vaccine(self, vaccines: DataFrame) -> str`:
-  - find earliest `vaccine` which has been used in the world
-  - <b>Hint</b>: you could base on `date` to find the earliest used `vaccine` and return only name of `vaccine`
-  - You should also convert `date` to timestamp data type 
-  - For example: `Oxford/AstraZeneca` is the earliest used vaccine
+  - encontrar a primeira vacina (`vaccine`) que foi usada no mundo
+  - em cenários onde várias vacinas foram usadas em um dia, classifique a vacina (`vaccine`) em ordem crescente e escolha a primeira
+  - <b>Dica</b>: use a data (`date`) para encontrar a primeira vacina (`vaccine`) usada e retorne apenas o nome da vacina.
+  - converter data em tipo de data (`date`) para formato date
+  - Por exemplo: `Oxford/AstraZeneca`  a primeira vacina usada:
   
     | country       | date        | ...  | vaccine           |
     | ------------- |:-----------:|---:  | -----------------:|
@@ -45,9 +46,9 @@ The project is partially completed and there are 4 methods and a spark session t
   
 
 - `total_vaccinations_per_country(self, vaccines: DataFrame) -> DataFrame`:
-  - Aggregate the vaccines data to see what is `total_vaccinations` for each `country`
-  - <b>Note</b>: `total_vaccinations` could be missing in real data due to data entry error. Please ignore all of missing records!
-  - For example:
+  - Faça a agregação dos dados de vacinas para ver o que é total_vaccinations para cada país
+  - <b>Nota</b>: `total_vaccinations` pode estar faltando nos dados reais devido a um erro de entrada de dados. Ignore todos os registros ausentes!
+  - Por exemplo:
     
     | country       | date        | total_vaccinations  | vaccine           |
     | ------------- |:-----------:|------------------:  | -----------------:|
@@ -55,14 +56,14 @@ The project is partially completed and there are 4 methods and a spark session t
     | UK            | 01/12/20    | 2000                | Sputnik V         |
     | US            | 30/12/20    | 5000                | Moderna           |
     
-  - Expected output:
+  - Saída esperada:
   
     |country  | total_vaccinations |
     |---------|:------------------:|
     | UK      | 3000               |
     | US      | 5000               |
     
-Your task is to complete the implementation of that job so that the unit tests pass while running the tests. You can use the give tests check your progress while solving problem.
+Conclua a implementação de forma que os testes de unidade sejam aprovados durante a execução dos testes. Use os testes de dar para verificar seu progresso enquanto resolve o problema.
 
 ## Commands
 - run: 
