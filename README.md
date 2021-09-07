@@ -1,8 +1,8 @@
-## Environment:
+## Ambiente:
 - Spark Version: 3.0.1
 - Python Version: 3.7
 
-## Read-Only Files:
+## Arquivos somente leitura, não precise alterar esses arquivos:
 - `src/app.py`
 - `src/tests/test_pipeline.py`
 - `src/main/__init__.py`
@@ -11,7 +11,7 @@
 - `install.sh`
 - `data/country_vaccinations.csv`
 
-## Requirements:
+## Objetivo:
 Implemente o pipeline do PySpark que realiza operações de análise básica nos dados da vacina COVID-19. A amostra de dados para a análise necessária está disponível nos dados na pasta `data`
 
 - `country_vaccinations.csv` 
