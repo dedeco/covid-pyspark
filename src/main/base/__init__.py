@@ -12,12 +12,12 @@ class PySparkJobInterface(abc.ABC):
         """Create spark session"""
         raise NotImplementedError
 
-    def read_csv(self, input_path: str) -> DataFrame:
-        return self.spark.read.options(header=True, inferSchema=True).csv(input_path)
-
     @abc.abstractmethod
     def count_available_vaccines(self, vaccines: DataFrame) -> int:
         raise NotImplementedError
+
+    def read_csv(self, input_path: str) -> DataFrame:
+        return self.spark.read.options(header=True, inferSchema=True).csv(input_path)
 
     @abc.abstractmethod
     def find_earliest_used_vaccine(self, vaccines: DataFrame) -> str:

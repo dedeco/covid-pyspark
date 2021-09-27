@@ -1,6 +1,7 @@
 import pytest
 from pyspark.sql import SparkSession
-from main.job.pipeline import PySparkJob
+
+from src.main.job.pipeline import PySparkJob
 
 job = PySparkJob()
 schema = ["country", "date", "total_vaccinations", "vaccines"]
@@ -45,8 +46,6 @@ def test_init_spark_session():
 @pytest.mark.filterwarnings("ignore")
 def test_count_available_vaccines():
     assert job.count_available_vaccines(create_sample(sample1)) == 3
-    assert job.count_available_vaccines(create_sample(sample2)) == 3
-    assert job.count_available_vaccines(create_sample(sample3)) == 3
 
 
 @pytest.mark.filterwarnings("ignore")
@@ -65,4 +64,5 @@ def test_total_vaccinations_per_country():
     assert total_vaccinations == {'Costa Rica': 29389.0, 'Italy': 123211.0, 'Luxembourg': 1943.0}
 
     total_vaccinations = job.total_vaccinations_per_country(create_sample(sample3)).rdd.collectAsMap()
-    assert total_vaccinations == {'Austria': 191798.0, 'Iceland': 15522.0, 'Romania': 389507.0, 'Slovenia': 61679.0, 'Spain': 1291216.0}
+    assert total_vaccinations == {'Austria': 191798.0, 'Iceland': 15522.0, 'Romania': 389507.0, 'Slovenia': 61679.0,
+                                  'Spain': 1291216.0}
